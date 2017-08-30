@@ -1,0 +1,81 @@
+<%= render 'layouts/header'%>
+<div class="panel-body">
+  <div class="row">
+    <div class="col-md-6 col-lg-6">
+       <div class="panel">
+         <div class="panel-heading">
+           <h3>Restaurant Details</h3>
+         </div>
+          <div class="panel-body">
+            <table class="table mbn tc-icon-bold">
+                <tbody>
+                  <tr>
+                    <td>
+                      Restaurant Name
+                    </td>
+                    <td>
+                      City
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= @restaurant.name %>
+                    </td>
+                    <td>
+                      <%= @restaurant.city %>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+          </div>
+          <div class="panel-heading">
+           <h3>Reviews</h3>
+          </div>
+          <div class="panel-body">
+            <table class="table mbn tc-icon-bold">
+              <tbody>
+                <% if @reviews.present? %>
+                  <% @reviews.each do |r|%>
+                    <tr>
+                      <td><%= r.rate  %> Star</td>
+                      <td><%=r.comments%></td>
+                    </tr>
+                  <% end %>
+                <% else %>
+                  <div class="panel-heading">
+                    <h3 class="text-center">No Reviews Found</h3>
+                  </div>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+       </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="panel">
+         <h3>Write a review</h3>
+         <div class="panel-body">
+            <h4>Your Rating</h4>
+            <%= form_tag("/reviews/create_review", method: "post") do %>
+            <%= radio_button_tag 'rate', '1' %>
+            <%= label :rate, "1" %><br>
+            <%= radio_button_tag 'rate', '2' %>
+            <%= label :rate, "2" %><br>
+            <%= radio_button_tag 'rate', '3' %>
+            <%= label :rate, "3" %><br>
+            <%= radio_button_tag 'rate', '4' %>
+            <%= label :rate, "4" %><br>
+            <%= radio_button_tag 'rate', '5' %>
+            <%= label :rate, "5" %><br>
+            <h4>Drop a line</h4>
+            <%= text_area_tag 'comments', nil, rows: 10, cols: 50 %><br>
+            <%= hidden_field_tag "restaurant_id", @restaurant.id %>
+            <%= hidden_field_tag "restaurant_name", @restaurant.name %>
+            <%= hidden_field_tag "restaurant_city", @restaurant.city %>
+            <%= submit_tag "Submit", :class => "btn btn-success finish-button" %>
+            <% end %>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <%= render 'layouts/header'%>
+    <div class="container">
+      <div class="row">
+      <% if @reviews.present? %>
+          <div class="panel">
+            <div class="panel-heading">
+              <h3>Review Details</h3>
+            </div>
+            <div class="panel-body">
+              <table class="table mbn tc-icon-bold">
+                <tbody>
+                  <tr>
+                    <td>
+                      Restaurant Name
+                    </td>
+                    <td>
+                      City
+                    </td>
+                    <td>
+                      Rating
+                    </td>
+                    <td>
+                      Comments
+                    </td>
+                  </tr>
+                  <% @reviews.each do |r| %>
+                  <tr>
+                    <td>
+                      <%= link_to r.restaurant_name, restaurants_show_path(:id => r.restaurant_id) %>
+                    </td>
+                    <td>
+                      <%= r.restaurant_city %>
+                    </td>
+                    <td>
+                      <%= r.rate %>
+                    </td>
+                    <td>
+                      <%= r.comments %>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      <% else %>
+        <div class="panel-heading">
+          <h3 class="text-center">No Reviews Found</h3>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </body>
+</html>
