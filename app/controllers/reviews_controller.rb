@@ -11,7 +11,10 @@ class ReviewsController < ApplicationController
     restaurant_id = params[:restaurant_id]
     @review = Review.new
     @review.update_attributes(rate: rate, comments: comments, restaurant_name: restaurant_name, restaurant_city: restaurant_city, restaurant_id: restaurant_id)
-    redirect_to :back
+    unless @review.save
+      flash[:error] = @review.errors.full_messages.join(",")
+      redirect_to :back
+    end
   end
 
   def list_reviews
